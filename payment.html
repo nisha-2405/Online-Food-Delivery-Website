@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('https://t3.ftcdn.net/jpg/02/64/00/56/360_F_264005624_NyFEBO7k0OsNMQiI343zBZZ7WH89f6Ls.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .order-list {
+            margin-bottom: 20px;
+        }
+        .order-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .payment-method {
+            margin-bottom: 15px;
+        }
+        .pay-button {
+            padding: 8px 12px; /* Smaller padding */
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 20%;
+            font-size: 14px; /* Smaller font size */
+        }
+        .submit-button {
+            display: block; /* Make the button a block element */
+            margin: 20px auto; /* Center the button */
+            padding: 8px 12px; /* Smaller padding */
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 50%; /* Width can be adjusted */
+            font-size: 14px; /* Smaller font size */
+        }
+        .submit-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Page</h1>
+        <div class="order-list" id="orderList"></div>
+        <h3>Customer Information</h3>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="address">Delivery Address:</label>
+            <input type="text" id="address" placeholder="Enter delivery address">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" placeholder="Enter your phone number">
+        </div>
+        <div class="form-group">
+            <label for="altPhone">Alternate Phone Number:</label>
+            <input type="text" id="altPhone" placeholder="Enter alternate phone number">
+        </div>
+        
+        <h3>Payment Information</h3>
+        <div class="payment-method">
+            <label><strong>Select Payment Method:</strong></label><br>
+            <label>
+                <input type="radio" name="paymentMethod" value="cash" checked> Cash on Delivery
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="creditCard"> Credit Card
+            </label>
+        </div>
+        
+        <div id="creditCardFields" style="display: none;">
+            <div class="form-group">
+                <label for="cardName">Name on Card:</label>
+                <input type="text" id="cardName" placeholder="Enter your name" disabled>
+            </div>
+            <div class="form-group">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" placeholder="Enter your card number" disabled>
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" placeholder="MM/YY" disabled>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" placeholder="Enter CVV" disabled>
+            </div>
+            <button class="pay-button" onclick="payPayment()">Pay Now</button><br><br>
+        </div>
+
+        <button class="submit-button" onclick="submitPayment()">Order Now</button>
+    </div>
+
+    <script>
+        // Load order items from localStorage
+        function loadOrderItems() {
+            const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
+            const orderList = document.getElementById('orderList');
+
+            if (orderItems.length > 0) {
+                orderItems.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'order-item';
+                    div.textContent = item;
+                    orderList.appendChild(div);
+                });
+            } else {
+                orderList.textContent = 'No items selected.';
+            }
+        }
+
+        // Enable/Disable credit card fields based on payment method selection
+        document.querySelectorAll('input[name="paymentMethod"]').forEach((input) => {
+            input.addEventListener('change', function() {
+                const isCreditCard = this.value === 'creditCard';
+                const creditCardFields = document.getElementById('creditCardFields');
+                
+                creditCardFields.style.display = isCreditCard ? 'block' : 'none';
+                
+                document.getElementById('cardName').disabled = !isCreditCard;
+                document.getElementById('cardNumber').disabled = !isCreditCard;
+                document.getElementById('expiryDate').disabled = !isCreditCard;
+                document.getElementById('cvv').disabled = !isCreditCard;
+            });
+        });
+
+        // Submit payment function
+        function submitPayment() {
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (paymentMethod === 'creditCard' && (!cardName || !cardNumber || !expiryDate || !cvv)) {
+                alert('Please fill out all credit card fields.');
+                return;
+            }
+
+            alert(`Payment successful! Thank you for your order with payment method: ${paymentMethod}.`);
+            // Clear the order items
+            localStorage.removeItem('orderItems');
+            // Redirect to a confirmation or homepage
+            window.location.href = 'index.html'; // Change this to your home or confirmation page
+        }
+
+        // Load order items when the page loads
+        window.onload = loadOrderItems;
+    </script>
+</body>
+</html>

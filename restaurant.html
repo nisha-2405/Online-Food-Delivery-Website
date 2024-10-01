@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erode Tamil Nadu Restaurant List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('https://t3.ftcdn.net/jpg/02/64/00/56/360_F_264005624_NyFEBO7k0OsNMQiI343zBZZ7WH89f6Ls.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            height: 50px; /* Adjust logo height */
+        }
+        .register-button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .register-button:hover {
+            background: #007bff;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+
+        }
+        .restaurant-list {
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        .restaurant-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .restaurant-item img {
+            width: 150px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 90%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8);
+            padding-top: 60px;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            margin: 20px ;
+        }
+        .menu-item img {
+            width: 100px; 
+            height: auto; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            margin-left: 10px; 
+        }
+        .order-button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .order-button:hover {
+            background: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img5.jpg" alt="Logo"> <!-- Replace with your logo -->
+        </div>
+        <a href="register.html" class="register-button">Register</a>
+    </header>
+    
+    <h1>Order Your Food Any Time</h1>
+    <ul class="restaurant-list">
+        <li class="restaurant-item" onclick="openModal('thottathu')">
+           <img src="https://lh3.googleusercontent.com/p/AF1QipOwFXZH2oOY0hhxPTHEwEQERRdnADW1yhCw-LEI=s680-w680-h510" alt="Thottathu Virunthu">
+           <h2>Thottathu Virunthu</h2>
+           <p>Thindal - Villarasampatty Rd<br>Phone: 09842742126</p>
+           <div class="menu" id="thottathu-menu" style="display:none;">
+               <h3>Menu Items:</h3>
+               <div class="menu-item">
+                   <input type="checkbox" id="thottathu-masalaDosa">
+                   <img src="img1.jpg" alt="Masala Dosa">
+                   <label for="thottathu-masalaDosa">Masala Dosa<br>Rs.80</label>
+               </div>
+               <div class="menu-item">
+                   <input type="checkbox" id="">
+                   <img src="img2.jpg" alt="Nattu">
+                   <label for="Nattu">Nattu Kozhi Varuval<br>Rs.250</label>
+               </div>
+               <div class="menu-item">
+                   <input type="checkbox" id="parotta">
+                   <img src="img3.jpg" alt="parotta">
+                   <label for="parotta">Parotta<br>Rs.40</label>
+               </div>
+           </div>
+       </li>
+       <li class="restaurant-item" onclick="openModal('barbequeen')">
+           <img src="https://lh3.googleusercontent.com/p/AF1QipOUS4P2__cqYKcO5k_Vsw8lRy3gnBVnklaBRHBW=s680-w680-h510" alt="Barbequeen Restaurant">
+           <h2>Barbequeen Restaurant</h2>
+           <p>Perundurai Rd<br>Phone: 09003760005</p>
+           <div class="menu" id="barbequeen-menu" style="display:none;">
+               <h3>Menu Items:</h3>
+               <div class="menu-item">
+                   <input type="checkbox" id="barbequeen-masalaDosa">
+                   <img src="https://via.placeholder.com/100" alt="Masala Dosa">
+                   <label for="barbequeen-masalaDosa">Masala Dosa</label>
+               </div>
+               <div class="menu-item">
+                   <input type="checkbox" id="barbequeen-idli">
+                   <img src="https://via.placeholder.com/100" alt="Idli and Sambar">
+                   <label for="barbequeen-idli">Idli and Sambar</label>
+               </div>
+               <div class="menu-item">
+                   <input type="checkbox" id="barbequeen-vada">
+                   <img src="https://via.placeholder.com/100" alt="Vada">
+                   <label for="barbequeen-vada">Vada</label>
+               </div>
+           </div>
+       </li>
+       <li class="restaurant-item" onclick="openModal('sri-thindal')">
+           <img src="https://img.restaurantguru.com/rfe4-Thindal-Punjabi-advertisement.jpg" alt="Sri Thindal Punjabi">
+           <h2>Sri Thindal Punjabi</h2>
+           <p>Maruthi Nagar, Thindal<br>Phone: 07373852000</p>
+           <div class="menu" id="sri-thindal-menu" style="display:none;">
+               <h3>Menu Items:</h3>
+               <div class="menu-item">
+                   <input type="checkbox" id="sri-thindal-idli">
+                   <img src="https://via.placeholder.com/100" alt="Idli">
+                   <label for="sri-thindal-idli">Idli</label>
+               </div>
+               <div class="menu-item">
+                   <input type="checkbox" id="sri-thindal-sambarVada">
+                   <img src="https://via.placeholder.com/100" alt="Sambar Vada">
+                   <label for="sri-thindal-sambarVada">Sambar Vada</label>
+               </div>
+           </div>
+       </li>
+       <li class="restaurant-item" onclick="openModal('kongu')">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipPpuOZSibpvYSiu1n9jwBh8VPPbjhAIoc30m5TZ=s680-w680-h510">
+            <h2>Kongu Parotta Stall</h2>
+            <p>Edayankattuvalasu<br>Phone: 06338727698</p>
+        </li>
+        <li class="restaurant-item" onclick="openModal('taj')">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipOhO2gH8zgZxCDVwb5aFwd5EZpDakIwOjvTaOzp=s680-w680-h510">
+            <h2>Taj restaurant</h2>
+            <p>Perundurai road<br>Phone: 099408 45552</p>
+        </li>
+        <li class="restaurant-item" onclick="openModal('planetB')">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipMVpikUoB6MDc_ope989Ln3bLMCSWlbWGKkRaIl=s680-w680-h510">
+            <h2>Planet B Family Restaurant</h2>
+            <p>Teachers Colony<br>Phone: 091593 38895</p>
+        </li>
+    </ul>
+
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <script>
+        function openModal(restaurant) {
+            const modalContent = document.getElementById("modalContent");
+            const menu = document.getElementById(`${restaurant}-menu`);
+            modalContent.innerHTML = menu.innerHTML + '<button class="order-button" onclick="placeOrder()">Order</button>';
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        function placeOrder() {
+            // Select all checkboxes only in the currently displayed menu
+            const checkboxes = document.querySelectorAll("#modalContent input[type='checkbox']");
+            let orderItems = [];
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    orderItems.push(checkbox.nextElementSibling.innerText);
+                }
+            });
+            
+            if (orderItems.length > 0) {
+                // Store order items in localStorage
+                localStorage.setItem('orderItems', JSON.stringify(orderItems));
+                // Redirect to payment page
+                window.location.href = 'payment.html';
+            } else {
+                alert("Please select at least one item to order.");
+            }
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
